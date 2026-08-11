@@ -60,3 +60,33 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
                 # Format and remove duplicates
                 img_set = set()
                 for src in images:
+                    abs_url = urljoin(url, src)
+                    if abs_url.startswith(('http://', 'https://')):
+                        img_set.add(abs_url)
+                result.images = list(img_set)
+                
+            if "links" in fields:
+                links = page.evaluate('''() => {
+                    const aTags = Array.from(document.querySelectorAll('a[href]'));
+                    return aTags.map(a => a.href);
+                }''')
+                
+                # Format and remove duplicates
+                link_set = set()
+                for href in links:
+                    if href and not href.startswith(('javascript:', 'mailto:', '#')):
+                        abs_url = urljoin(url, href)
+                        if abs_url.startswith(('http://', 'https://')):
+                            link_set.add(abs_url)
+                result.links = list(link_set)
+                
+            return result
+        finally:
+            browser.close()
+
+async def scrape_dynamic(url: str, fields: list[str]) -> ScrapeResponse:
+    """
+    Scrapes a webpage dynamically using Playwright by offloading the sync work to a separate thread.
+    This bypasses asyncio event loop subprocess compatibility issues on Windows.
+    """
+    return await asyncio.to_thread(_do_sync_scrape, url, fields)
