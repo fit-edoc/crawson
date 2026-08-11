@@ -49,3 +49,54 @@ interface CrawlerFormProps {
 
 export default function CrawlerForm({ onSubmit, isLoading }: CrawlerFormProps) {
   const [url, setUrl] = useState("");
+  const [fields, setFields] = useState<Field[]>(["title", "description", "images", "links"]);
+  const [deepScrape, setDeepScrape] = useState(false);
+
+  const toggleField = (field: Field) => {
+    setFields(prev => 
+      prev.includes(field) ? prev.filter(f => f !== field) : [...prev, field]
+    );
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (url && fields.length > 0) {
+      onSubmit(url, fields, deepScrape);
+    }
+  };
+
+  return (
+    <Card className="rounded-3xl w-full max-w-3xl mx-auto mb-8 transition-all duration-300 border border-slate-200 shadow-xl bg-white overflow-hidden">
+      <CardHeader className="text-center pb-6 pt-10 border-b-2 border-slate-100">
+        <CardTitle className="text-4xl font-khand tracking-tight mb-2 text-slate-900 uppercase">
+          Crawson Extractor
+        </CardTitle>
+        <CardDescription className="text-slate-600 text-base font-medium">
+          Extract structured data from any URL instantly.
+        </CardDescription>
+      </CardHeader>
+      
+      <CardContent className="p-6 sm:p-8 pt-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="relative group">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-50 group-focus-within:text-slate-100 transition-colors z-10">
+              <Search size={22} strokeWidth={2.5} />
+            </div>
+            <Input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com"
+              required
+              className="w-full bg-black border-2 border-slate-200 rounded-xl h-16 pl-14 pr-4 text-slate-100 placeholder-black focus-visible:ring-0 focus-visible:border-slate-900 transition-all text-lg font-medium"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold text-slate-900 mb-4 uppercase tracking-wider">Data to Extract</label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {AVAILABLE_FIELDS.map((field) => {
+                const isSelected = fields.includes(field.id);
+                return (
+                  <div
+                    key={field.id}
