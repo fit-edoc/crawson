@@ -14,3 +14,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     },
   }));
 
+  return (
+    <ReactLenis root>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </ReactLenis>
+  );
+}
