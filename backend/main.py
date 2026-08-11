@@ -24,7 +24,7 @@ app = FastAPI(title="Web Crawler API", version="1.0.0")
 # Enable CORS for the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://crawson.onrender.com"], # Update this to the frontend URL in production
+    allow_origins=["http://localhost:3000", "*"], # Allow local frontend and production frontend
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
