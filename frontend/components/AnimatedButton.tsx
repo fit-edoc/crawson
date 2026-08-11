@@ -16,3 +16,12 @@ export default function AnimatedButton({ children, icon, className, ...props }: 
         <span className="anim-btn-text default-text flex items-center">
           {icon}
           {children}
+        </span>
+        <span className="anim-btn-text hover-text flex items-center" aria-hidden="true">
+          {icon}
+          {children}
+        </span>
+      </div>
+    </Button>
+  );
+}
