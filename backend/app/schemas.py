@@ -10,3 +10,9 @@ class ScrapeResponse(BaseModel):
     url: str
     title: Optional[str] = None
     description: Optional[str] = None
+    images: Optional[List[str]] = None
+    links: Optional[List[str]] = None
+    method_used: str = "static" # Will be either 'static' or 'dynamic'
+
+class DownloadZipRequest(BaseModel):
+    images: List[str]
