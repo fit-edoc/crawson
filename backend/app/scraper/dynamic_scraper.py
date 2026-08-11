@@ -29,3 +29,34 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
                         totalHeight += distance;
 
                         if (totalHeight >= scrollHeight || totalHeight > 15000) {
+                            clearInterval(timer);
+                            resolve();
+                        }
+                    }, 150);
+                });
+            }''')
+            # Wait a bit after scrolling for images to load
+            page.wait_for_timeout(2000)
+            
+            result = ScrapeResponse(url=url, method_used="dynamic")
+            
+            if "title" in fields:
+                result.title = page.title()
+                
+            if "description" in fields:
+                desc = page.evaluate('''() => {
+                    const meta = document.querySelector('meta[name="description"]') || 
+                                 document.querySelector('meta[property="og:description"]');
+                    return meta ? meta.content : null;
+                }''')
+                result.description = desc.strip() if desc else None
+                
+            if "images" in fields:
+                images = page.evaluate('''() => {
+                    const imgTags = Array.from(document.querySelectorAll('img'));
+                    return imgTags.map(img => img.src).filter(src => src);
+                }''')
+                
+                # Format and remove duplicates
+                img_set = set()
+                for src in images:
