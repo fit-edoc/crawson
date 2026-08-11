@@ -1,8 +1,8 @@
-# Arachne Web Extractor 🕷️
+# Arachne Web Extractor
 
 A production-ready full-stack web scraping application with a Python FastAPI backend and a Next.js (App Router) frontend. It dynamically switches between static scraping (fast, using BeautifulSoup) and dynamic scraping (Playwright) depending on the target website's content.
 
-## 🚀 Setup & Local Development
+## Setup & Local Development
 
 ### 1. Backend Setup
 
@@ -54,7 +54,7 @@ npm run dev
 
 ---
 
-## 🛠️ Architecture
+## Architecture
 
 - **Smart Scraper:** The backend first attempts a fast static scrape using `httpx` and `BeautifulSoup4`. If the page is mostly empty or lacks content (typical of a client-side rendered app), it seamlessly falls back to spinning up a headless Chromium browser via `Playwright` to render the JavaScript and extract the DOM.
 - **SSRF Protection:** The `/scrape` endpoint blocks requests to private IP addresses (e.g., localhost) to prevent Server-Side Request Forgery attacks.
@@ -62,7 +62,7 @@ npm run dev
 
 ---
 
-## 🌍 Deployment Instructions
+## Deployment Instructions
 
 ### Deploying the Backend (Render / Railway)
 1. Ensure `backend/requirements.txt` is updated (`pip freeze > requirements.txt`).
