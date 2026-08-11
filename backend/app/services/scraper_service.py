@@ -16,3 +16,12 @@ async def perform_scraping(url: str, fields: list[str], deep_scrape: bool = Fals
 
     try:
         # Try static scraping first (fastest)
+        logger.info(f"Attempting static scrape for {url}")
+        return await scrape_static(url, fields)
+    except Exception as e:
+        # If static scraping fails (e.g., due to it being heavily JS-rendered or hitting a ValueError)
+        logger.warning(f"Static scrape failed or indicated dynamic content for {url}: {e}")
+        logger.info(f"Falling back to dynamic scrape for {url}")
+        
+        # Fallback to dynamic scraping (slower but handles JS)
+        return await scrape_dynamic(url, fields)
