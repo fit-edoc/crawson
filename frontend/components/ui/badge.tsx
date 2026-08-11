@@ -34,3 +34,19 @@ function Badge({
   ...props
 }: useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>) {
   return useRender({
+    defaultTagName: "span",
+    props: mergeProps<"span">(
+      {
+        className: cn(badgeVariants({ variant }), className),
+      },
+      props
+    ),
+    render,
+    state: {
+      slot: "badge",
+      variant,
+    },
+  })
+}
+
+export { Badge, badgeVariants }
