@@ -92,3 +92,50 @@ export default function ToolPage() {
             
             {/* Visual View */}
             {(viewMode === "split" || viewMode === "visual") && (
+              <div className="bg-white/80 rounded-2xl p-6 border border-slate-200 shadow-lg">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+                  <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                    <Monitor className="text-[#ffffff]  bg-[#000]  p-0.5 rounded-md" size={30} /> Visual Output
+                  </h3>
+                </div>
+                <VisualRenderer data={data} />
+              </div>
+            )}
+
+            {/* JSON View */}
+            {(viewMode === "split" || viewMode === "json") && (
+              <div className="bg-white/90 rounded-2xl p-6 border border-slate-200 shadow-lg overflow-hidden flex flex-col h-full min-h-[500px]">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+                  <h3 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                    <Code2 className="text-[#ffffff]  bg-[#000]  p-0.5 rounded-md" size={30} /> Raw JSON
+                  </h3>
+                  <span className="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded border border-slate-200">Read-only</span>
+                </div>
+                <div className="flex-1 overflow-auto custom-scrollbar bg-slate-50 rounded-lg p-4 border border-slate-200">
+                  <JsonView 
+                    value={data} 
+                    displayDataTypes={false}
+                    displayObjectSize={false}
+                    collapsed={1}
+                    style={{ 
+                      backgroundColor: 'transparent',
+                      '--w-rjv-color': '#0f172a',
+                      '--w-rjv-key-string': '#1d4ed8',
+                      '--w-rjv-background-color': 'transparent',
+                      '--w-rjv-line-color': '#cbd5e1',
+                      '--w-rjv-arrow-color': '#64748b',
+                      '--w-rjv-type-string-color': '#059669',
+                      '--w-rjv-type-int-color': '#be185d',
+                      '--w-rjv-type-boolean-color': '#b91c1c',
+                    } as React.CSSProperties}
+                  />
+                </div>
+              </div>
+            )}
+            
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
