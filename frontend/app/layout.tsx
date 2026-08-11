@@ -9,8 +9,13 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Arachne | Next-Gen Web Scraper",
+  title: "Crawson  |  Web Scraper",
   description: "Extract structured data from any website instantly.",
+
+  icons:{
+    icon:"/logo.png",
+    
+  }
 };
 
 export default function RootLayout({
