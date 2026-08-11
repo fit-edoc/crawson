@@ -40,3 +40,24 @@ async def scrape_static(url: str, fields: list[str]) -> ScrapeResponse:
         if "images" in fields:
             img_tags = soup.find_all('img')
             images = set()
+            for img in img_tags:
+                src = img.get('src')
+                if src:
+                    # Convert relative URL to absolute URL
+                    abs_url = urljoin(url, src)
+                    if abs_url.startswith(('http://', 'https://')):
+                        images.add(abs_url)
+            result.images = list(images)
+            
+        if "links" in fields:
+            a_tags = soup.find_all('a', href=True)
+            links = set()
+            for a in a_tags:
+                href = a.get('href')
+                if href and not href.startswith(('#', 'javascript:', 'mailto:')):
+                    abs_url = urljoin(url, href)
+                    if abs_url.startswith(('http://', 'https://')):
+                        links.add(abs_url)
+            result.links = list(links)
+            
+        return result
