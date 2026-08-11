@@ -19,3 +19,24 @@ async def scrape_static(url: str, fields: list[str]) -> ScrapeResponse:
         soup = BeautifulSoup(html_content, "html.parser")
         
         # Check if page is mostly empty or highly dynamic (heuristic)
+        # If the body is very small but there are scripts, it might be a JS SPA
+        body = soup.find('body')
+        if not body or len(body.get_text(strip=True)) < 50:
+            # Indicate that it might need dynamic scraping
+            raise ValueError("Page appears to be dynamically rendered (JS-heavy).")
+            
+        result = ScrapeResponse(url=url, method_used="static")
+        
+        if "title" in fields:
+            title_tag = soup.find('title')
+            result.title = title_tag.string.strip() if title_tag and title_tag.string else None
+            
+        if "description" in fields:
+            meta_desc = soup.find('meta', attrs={'name': 'description'})
+            if not meta_desc:
+                meta_desc = soup.find('meta', attrs={'property': 'og:description'})
+            result.description = meta_desc['content'].strip() if meta_desc and meta_desc.get('content') else None
+            
+        if "images" in fields:
+            img_tags = soup.find_all('img')
+            images = set()
