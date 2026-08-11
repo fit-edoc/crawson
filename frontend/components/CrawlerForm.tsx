@@ -100,3 +100,54 @@ export default function CrawlerForm({ onSubmit, isLoading }: CrawlerFormProps) {
                 return (
                   <div
                     key={field.id}
+                    onClick={() => toggleField(field.id)}
+                    className={`flex items-center gap-4 px-2 py-2 rounded-xl border transition-all cursor-pointer ${
+                      isSelected 
+                        ? "bg-slate-900 border-slate-900 text-white shadow-md" 
+                        : "bg-white border-slate-200 text-slate-600 hover:border-slate-400"
+                    }`}
+                  >
+                    <Checkbox 
+                      checked={isSelected} 
+                      onCheckedChange={() => toggleField(field.id)}
+                      className="data-[state=checked]:bg-white data-[state=checked]:text-slate-900 border-slate-400 data-[state=checked]:border-white"
+                    />
+                    <span className="font-semibold text-sm select-none">{field.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Deep Scrape Toggle */}
+          <div className="flex items-center justify-between p-5 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+            <div>
+              <h3 className="text-base font-bold text-slate-900">Deep Scrape (Playwright)</h3>
+              <p className="text-sm text-slate-500 mt-1 font-medium">For dynamic JS sites that lazy-load images.</p>
+            </div>
+            <Switch
+              checked={deepScrape}
+              onCheckedChange={setDeepScrape}
+              className="data-[state=checked]:bg-slate-900"
+            />
+          </div>
+
+          <AnimatedButton
+            type="submit"
+            disabled={isLoading || !url || fields.length === 0}
+            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold h-16 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all border-none text-lg tracking-wider hover:-translate-y-1 hover:shadow-xl shadow-md flex items-center justify-center"
+          >
+            {isLoading ? (
+              <div className="flex items-center">
+                <Loader2 className="animate-spin" size={24} />
+                <LoadingText />
+              </div>
+            ) : (
+              "Extract Data"
+            )}
+          </AnimatedButton>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}
