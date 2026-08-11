@@ -96,3 +96,51 @@ async def download_image(url: str = Query(..., description="URL of the image to 
                 media_type=content_type,
                 headers={"Content-Disposition": f'attachment; filename="{filename}"'}
             )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to download image: {str(e)}")
+
+@app.post("/download-zip")
+async def download_zip(request: DownloadZipRequest):
+    if not request.images:
+        raise HTTPException(status_code=400, detail="No images provided")
+        
+    zip_buffer = io.BytesIO()
+    
+    async def fetch_image(client, url):
+        try:
+            response = await client.get(url, headers={"User-Agent": "Mozilla/5.0"})
+            response.raise_for_status()
+            filename = url.split("/")[-1].split("?")[0] or "image.jpg"
+            return filename, response.content
+        except Exception:
+            return None, None
+
+    async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+        tasks = [fetch_image(client, url) for url in request.images if url.startswith(("http://", "https://"))]
+        results = await asyncio.gather(*tasks)
+        
+        with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+            # Keep track of filenames to avoid duplicates in zip
+            seen_names = set()
+            for filename, content in results:
+                if filename and content:
+                    # Make name unique if it exists
+                    base_name = filename
+                    counter = 1
+                    while base_name in seen_names:
+                        parts = filename.rsplit(".", 1)
+                        if len(parts) == 2:
+                            base_name = f"{parts[0]}_{counter}.{parts[1]}"
+                        else:
+                            base_name = f"{filename}_{counter}"
+                        counter += 1
+                        
+                    seen_names.add(base_name)
+                    zip_file.writestr(base_name, content)
+                    
+    zip_buffer.seek(0)
+    return StreamingResponse(
+        zip_buffer,
+        media_type="application/zip",
+        headers={"Content-Disposition": 'attachment; filename="images.zip"'}
+    )
