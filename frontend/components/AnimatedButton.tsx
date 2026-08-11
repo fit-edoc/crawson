@@ -7,3 +7,12 @@ interface AnimatedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 export default function AnimatedButton({ children, icon, className, ...props }: AnimatedButtonProps) {
+  return (
+    <Button
+      {...props}
+      className={`group relative overflow-hidden  px-8 py-2 transition-all ${className || ''}`}
+    >
+      <div className="anim-btn-container w-full h-full flex items-center justify-center">
+        <span className="anim-btn-text default-text flex items-center">
+          {icon}
+          {children}
