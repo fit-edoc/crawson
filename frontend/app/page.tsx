@@ -61,3 +61,66 @@ export default function LandingPage() {
         
         <motion.h1 
           className="text-5xl sm:text-6xl md:text-7xl text-slate-900 mb-6 tracking-tight leading-[1.2] flex flex-wrap justify-center items-center gap-x-4 gap-y-2" 
+          style={{ fontFamily: 'var(--font-kanit)', fontWeight: 500 }}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.span variants={blurWord}>Extract the</motion.span> 
+          {/* Inline Image Placeholder */}
+          <motion.img 
+            variants={blurWord}
+            src="/logo.png" 
+            alt="Hero Icon" 
+            className="w-16 h-16 sm:w-20 rotate-12 sm:h-20 bg-slate-200 rounded-2xl object-cover inline-block shadow-md" 
+          />
+          <motion.span variants={blurWord}>Web Data</motion.span>
+          <motion.span variants={blurWord} className="w-full block mt-2">Without Limits</motion.span>
+        </motion.h1>
+        
+        <motion.p 
+          className="text-lg sm:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed flex flex-wrap justify-center gap-x-2 gap-y-1" 
+          style={{ fontFamily: 'var(--font-khand)' }}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+        >
+          {words.map((word, i) => (
+            <motion.span key={i} variants={blurWord} className="inline-block">
+              {word}
+            </motion.span>
+          ))}
+        </motion.p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link href="/tool">
+            <AnimatedButton className="bg-slate-900 text-white px-8 py-2 rounded-md font-medium  hover:shadow-xl hover:bg-slate-800 transition-all h-10">
+              Launch Scraper 
+            </AnimatedButton>
+          </Link>
+          <Link href="/tool">
+            <AnimatedButton className="bg-white text-black px-8 py-2 rounded-md border border-black/10 font-medium  hover:shadow-xl hover:bg-slate-50 transition-all h-10">
+              View Features 
+            </AnimatedButton>
+          </Link>
+        </div>
+      </div>
+
+      {/* Hero Image Section */}
+      <div className="w-full max-w-5xl mx-auto mt-24 px-4 pb-24 z-10">
+        <div className="w-full aspect-video bg-black backdrop-blur-sm rounded-[2rem] sm:rounded-[3rem] p-4 sm:p-4 shadow-2xl border border-white/50 flex items-center justify-center">
+          {/* Main Showcase Image Placeholder */}
+          <video src="/showcase.mp4" autoPlay muted loop className="w-full h-full object-cover  rounded-[1.5rem] sm:rounded-[2.5rem] bg-slate-100 shadow-inner" ></video>
+        </div>
+      </div>
+
+      {/* How does it work Section */}
+      <div className="w-full bg-white py-32 px-4 z-10 border-t border-slate-200 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-khand text-slate-900 mb-4 tracking-tight uppercase" style={{ fontFamily: 'var(--font-kanit)' }}>How it Works</h2>
+            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-khand)' }}>Turn any website into structured data with our robust, four-step extraction pipeline.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {stepCards.map((card, index) => (
