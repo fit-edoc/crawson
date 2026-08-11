@@ -18,3 +18,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  return (
+    <html lang="en" className={cn("font-sans", geist.variable)}>
+      <body className={`${inter.variable} antialiased selection:bg-accent selection:text-white`}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
+  );
+}
