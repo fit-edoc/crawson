@@ -2,7 +2,6 @@ import sys
 import os
 import asyncio
 
-os.environ["PLAYWRIGHT_BROWSERS_PATH"] = "0"
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
