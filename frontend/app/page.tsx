@@ -124,3 +124,64 @@ export default function LandingPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
             {stepCards.map((card, index) => (
+              <motion.div 
+                key={card.step}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                className="bg-white border border-slate-200 p-8 rounded-[2rem] hover:bg-slate-950 hover:text-white transition-all duration-500 group shadow-sm hover:shadow-2xl relative"
+              >
+                <div className="text-5xl font-black text-slate-100 group-hover:text-slate-800 transition-colors mb-6 font-khand">{card.step}</div>
+                <h3 className="text-2xl font-bold mb-3 tracking-tight group-hover:text-white text-slate-900 transition-colors">{card.title}</h3>
+                <p className="text-slate-500 group-hover:text-slate-400 font-medium leading-relaxed transition-colors text-sm">{card.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Section */}
+      <footer className="w-full bg-[#0a0a0a] pt-24 pb-8 px-6 flex flex-col z-10 border-t border-slate-900 overflow-hidden relative">
+        {/* Top Section */}
+        <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
+          {/* Left CTA */}
+          <div className="flex flex-col gap-6 max-w-sm">
+            <h3 className="text-white text-4xl md:text-5xl font-khand font-khand leading-tight">Ready to extract data at scale?</h3>
+            <Link href="/tool">
+              <button className=" px-2 py-2 rounded-md bg-white text-black">
+                Launch Scraper
+              </button>
+            </Link>
+          </div>
+          
+          {/* Right Socials */}
+          <div className="flex flex-col gap-4">
+            <span className="text-white/50 font-khand text-sm uppercase tracking-widest">Connect</span>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Giant Text Section */}
+        <div className="w-full flex flex-col items-center mt-auto border-t border-white/10 pt-8 relative max-w-7xl mx-auto">
+           <div className="w-full flex items-center justify-center gap-4 overflow-hidden mb-8">
+             <Image src="/logo.png" alt="logo" width={200} height={200} className="rounded-[2vw] md:w-[10vw] md:h-[10vw] hidden sm:block object-cover" />
+             <h1 className="text-[10vw] font-khand text-white leading-[0.8] tracking-tighter uppercase font-kanit m-0 p-0">CRAWSON</h1>
+           </div>
+           
+           <div className="w-full flex flex-col sm:flex-row justify-between items-center text-white/50 text-sm font-khand mt-4 gap-2">
+             <span>© 2024 Crawson. All Rights Reserved.</span>
+             <span className="flex items-center gap-1">Made with <span className="text-red-500">♥</span></span>
+           </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
