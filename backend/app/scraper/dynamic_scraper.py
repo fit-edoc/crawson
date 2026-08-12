@@ -1,5 +1,5 @@
 import asyncio
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from urllib.parse import urljoin
 from app.schemas import ScrapeResponse
 
@@ -15,8 +15,11 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
         page = context.new_page()
         
         try:
-            # Wait for network idle to ensure JS has mostly finished executing
-            page.goto(url, wait_until="networkidle", timeout=30000)
+            # Wait for domcontentloaded instead of networkidle to avoid timeouts on sites with continuous polling
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            except PlaywrightTimeoutError:
+                print(f"Warning: Timeout exceeded while loading {url}, continuing with scraped content.")
             
             # Auto-scroll to trigger lazy-loaded images (like on bikedekho)
             page.evaluate('''() => {
