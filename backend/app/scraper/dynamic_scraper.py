@@ -17,7 +17,8 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
         try:
             # Wait for domcontentloaded instead of networkidle to avoid timeouts on sites with continuous polling
             try:
-                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                # Reduced timeout from 30000ms to 15000ms to fail/continue faster on slow sites
+                page.goto(url, wait_until="domcontentloaded", timeout=15000)
             except PlaywrightTimeoutError:
                 print(f"Warning: Timeout exceeded while loading {url}, continuing with scraped content.")
             
@@ -25,21 +26,22 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
             page.evaluate('''() => {
                 return new Promise((resolve) => {
                     let totalHeight = 0;
-                    const distance = 200;
+                    const distance = 500; // Increased distance for faster scrolling
                     const timer = setInterval(() => {
                         const scrollHeight = document.body.scrollHeight;
                         window.scrollBy(0, distance);
                         totalHeight += distance;
 
-                        if (totalHeight >= scrollHeight || totalHeight > 15000) {
+                        // Reduced max height to 10000 to finish scrolling faster
+                        if (totalHeight >= scrollHeight || totalHeight > 10000) {
                             clearInterval(timer);
                             resolve();
                         }
-                    }, 150);
+                    }, 100); // Reduced interval to 100ms
                 });
             }''')
-            # Wait a bit after scrolling for images to load
-            page.wait_for_timeout(2000)
+            # Wait a bit after scrolling for images to load (reduced from 2000ms)
+            page.wait_for_timeout(1000)
             
             result = ScrapeResponse(url=url, method_used="dynamic")
             
