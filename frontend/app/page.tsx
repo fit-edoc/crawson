@@ -60,8 +60,8 @@ export default function LandingPage() {
       <div className="flex flex-col items-center text-center mt-40 sm:mt-48 max-w-4xl mx-auto px-4 z-10">
         
         <motion.h1 
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-6 tracking-tight leading-[1.2] flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 gap-y-2" 
-          style={{ fontFamily: 'var(--font-kanit)', fontWeight: 500 }}
+          className="text-4xl font-Hero sm:text-5xl md:text-6xl lg:text-7xl text-black mb-6 tracking-tight leading-[1.2] flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 gap-y-2" 
+
           variants={staggerContainer}
           initial="hidden"
           animate="show"
@@ -118,8 +118,8 @@ export default function LandingPage() {
       <div className="w-full bg-white py-32 px-4 z-10 border-t border-slate-200 relative overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-khand text-slate-900 mb-4 tracking-tight uppercase" style={{ fontFamily: 'var(--font-kanit)' }}>How it Works</h2>
-            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-khand)' }}>Turn any website into structured data with our robust, four-step extraction pipeline.</p>
+            <h2 className="text-4xl md:text-5xl  text-slate-900 mb-4 tracking-tight uppercase font-oswald">How it Works</h2>
+            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-oswald)' }}>Turn any website into structured data with our robust, four-step extraction pipeline.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
@@ -173,12 +173,12 @@ export default function LandingPage() {
         <div className="w-full flex flex-col items-center mt-auto border-t border-white/10 pt-8 relative max-w-7xl mx-auto">
            <div className="w-full flex items-center justify-center gap-4 overflow-hidden mb-8">
              <Image src="/logo.png" alt="logo" width={200} height={200} className="rounded-[2vw] md:w-[10vw] md:h-[10vw] hidden sm:block object-cover" />
-             <h1 className="text-[10vw] font-khand text-white leading-[0.8] tracking-tighter uppercase font-kanit m-0 p-0">CRAWSON</h1>
+             <h1 className="text-[10vw] font-khand text-white leading-[0.8] tracking-tighter uppercase font-Hero m-0 p-0">CRAWSON</h1>
            </div>
            
            <div className="w-full flex flex-col sm:flex-row justify-between items-center text-white/50 text-sm font-khand mt-4 gap-2">
              <span>© 2024 Crawson. All Rights Reserved.</span>
-             <span className="flex items-center gap-1">Made with <span className="text-red-500">♥</span></span>
+             <span className="flex items-center gap-1">Made with <span className="text-white">♥</span></span>
            </div>
         </div>
       </footer>

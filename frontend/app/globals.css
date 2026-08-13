@@ -7,9 +7,7 @@
 
 @theme {
   --font-sans: var(--font-inter);
-  --font-kanit: "Kanit", sans-serif;
-  --font-khand: "Khand", sans-serif;
-  --font-oswald: var(--font-oswald);
+  --font-Hero: var(--font-Hero);
 }
 
 :root {

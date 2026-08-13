@@ -9,6 +9,7 @@ import VisualRenderer from "@/components/VisualRenderer";
 import Link from "next/link";
 import { ArrowLeft, Code2, Monitor, LayoutTemplate } from "lucide-react";
 import AnimatedButton from "@/components/AnimatedButton";
+import Image from "next/image";
 
 // Dynamically import JsonView to avoid SSR issues
 const JsonView = dynamic(() => import('@uiw/react-json-view'), { ssr: false });
@@ -45,8 +46,8 @@ export default function ToolPage() {
   return (
     <main className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
       
-      <Link href="/" className="inline-flex items-center text-slate-500 hover:text-emerald-600 mb-8 font-medium transition-colors">
-        <ArrowLeft size={18} className="mr-2" /> Back to Home
+      <Link href="/" className="inline-flex items-center  text-slate-500 hover:text-emerald-600 mb-8 font-medium transition-colors">
+  <ArrowLeft size={18} className="mr-2" /> Back to Home
       </Link>
       
       <CrawlerForm onSubmit={handleSubmit} isLoading={scrapeMutation.isPending} />
