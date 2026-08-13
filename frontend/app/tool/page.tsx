@@ -21,8 +21,8 @@ export default function ToolPage() {
 
   const scrapeMutation = useMutation({
     mutationFn: async ({ url, fields, deepScrape }: { url: string; fields: string[], deepScrape: boolean }) => {
-      // Pointing to local FastAPI backend
-      const response = await axios.post("https://crawson.onrender.com/scrape", { url, fields, deep_scrape: deepScrape }, { timeout: 45000 });
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+      const response = await axios.post(`${apiUrl}/scrape`, { url, fields, deep_scrape: deepScrape }, { timeout: 60000 });
       return response.data;
     },
     onSuccess: () => {
