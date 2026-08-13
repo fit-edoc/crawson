@@ -21,7 +21,7 @@ export default function ToolPage() {
   const scrapeMutation = useMutation({
     mutationFn: async ({ url, fields, deepScrape }: { url: string; fields: string[], deepScrape: boolean }) => {
       // Pointing to local FastAPI backend
-      const response = await axios.post("http://127.0.0.1:8000/scrape", { url, fields, deep_scrape: deepScrape });
+      const response = await axios.post("https://crawson.onrender.com/scrape", { url, fields, deep_scrape: deepScrape }, { timeout: 45000 });
       return response.data;
     },
     onSuccess: () => {
@@ -43,7 +43,7 @@ export default function ToolPage() {
   const error = scrapeMutation.error as any;
 
   return (
-    <main className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <main className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
       
       <Link href="/" className="inline-flex items-center text-slate-500 hover:text-emerald-600 mb-8 font-medium transition-colors">
         <ArrowLeft size={18} className="mr-2" /> Back to Home
@@ -54,7 +54,11 @@ export default function ToolPage() {
       {isError && (
         <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-xl mb-8 max-w-3xl mx-auto text-center shadow-sm">
           <p className="font-semibold">Failed to extract data</p>
-          <p className="text-sm mt-1 opacity-80">{error?.response?.data?.detail || error.message}</p>
+          <p className="text-sm mt-1 opacity-80">
+            {error?.code === 'ECONNABORTED' 
+              ? "The request timed out. This website might be blocking scrapers or taking too long to respond." 
+              : error?.response?.data?.detail || "The scraper could not extract data from this particular URL. It might have anti-scraping mechanisms or require login."}
+          </p>
         </div>
       )}
 

@@ -3,9 +3,9 @@
 import Link from "next/link";
 import AnimatedButton from "@/components/AnimatedButton";
 import { buttonVariants } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -15,7 +15,7 @@ const staggerContainer = {
   }
 };
 
-const blurWord = {
+const blurWord: Variants = {
   hidden: { filter: "blur(10px)", opacity: 0, y: 10 },
   show: { filter: "blur(0px)", opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
