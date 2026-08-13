@@ -10,6 +10,7 @@ interface ScrapedData {
   description?: string;
   images?: string[];
   links?: string[];
+  structured_data?: any[];
   method_used?: string;
 }
 
@@ -172,6 +173,31 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
                     </div>
                     <span className="truncate">{link}</span>
                   </a>
+                ))}
+              </div>
+            </ScrollArea>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Structured Data */}
+      {data.structured_data && data.structured_data.length > 0 && (
+        <Card className="border border-slate-200 shadow-sm bg-white overflow-hidden">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-xl font-black text-slate-900 uppercase">
+              <FileText className="text-slate-900" size={24} />
+              Structured Data ({data.structured_data.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ScrollArea className="h-[400px] pr-4">
+              <div className="space-y-4 pb-4">
+                {data.structured_data.map((item, idx) => (
+                  <div key={idx} className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <pre className="text-xs text-slate-700 whitespace-pre-wrap break-words font-mono">
+                      {JSON.stringify(item, null, 2)}
+                    </pre>
+                  </div>
                 ))}
               </div>
             </ScrollArea>

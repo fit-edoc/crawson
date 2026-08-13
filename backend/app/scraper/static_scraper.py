@@ -1,6 +1,7 @@
 import httpx
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+import json
 from app.schemas import ScrapeResponse
 
 async def scrape_static(url: str, fields: list[str]) -> ScrapeResponse:
@@ -60,4 +61,20 @@ async def scrape_static(url: str, fields: list[str]) -> ScrapeResponse:
                         links.add(abs_url)
             result.links = list(links)
             
+        if "structured_data" in fields:
+            ld_json_scripts = soup.find_all('script', type='application/ld+json')
+            structured_data_list = []
+            for script in ld_json_scripts:
+                if script.string:
+                    try:
+                        data = json.loads(script.string)
+                        if isinstance(data, list):
+                            structured_data_list.extend(data)
+                        else:
+                            structured_data_list.append(data)
+                    except json.JSONDecodeError:
+                        pass
+            if structured_data_list:
+                result.structured_data = structured_data_list
+
         return result

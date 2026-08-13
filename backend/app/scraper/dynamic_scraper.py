@@ -1,4 +1,5 @@
 import asyncio
+import json
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from urllib.parse import urljoin
 from app.schemas import ScrapeResponse
@@ -84,6 +85,26 @@ def _do_sync_scrape(url: str, fields: list[str]) -> ScrapeResponse:
                         if abs_url.startswith(('http://', 'https://')):
                             link_set.add(abs_url)
                 result.links = list(link_set)
+
+            if "structured_data" in fields:
+                ld_json_scripts = page.evaluate('''() => {
+                    const scripts = Array.from(document.querySelectorAll('script[type="application/ld+json"]'));
+                    return scripts.map(s => s.textContent || s.innerText);
+                }''')
+                
+                structured_data_list = []
+                for script_text in ld_json_scripts:
+                    if script_text:
+                        try:
+                            data = json.loads(script_text)
+                            if isinstance(data, list):
+                                structured_data_list.extend(data)
+                            else:
+                                structured_data_list.append(data)
+                        except json.JSONDecodeError:
+                            pass
+                if structured_data_list:
+                    result.structured_data = structured_data_list
                 
             return result
         finally:

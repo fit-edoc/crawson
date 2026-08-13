@@ -7,13 +7,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
-type Field = "title" | "description" | "images" | "links";
+type Field = "title" | "description" | "images" | "links" | "structured_data";
 
 const AVAILABLE_FIELDS: { id: Field; label: string }[] = [
   { id: "title", label: "Title" },
   { id: "description", label: "Description" },
   { id: "images", label: "Images" },
   { id: "links", label: "Links" },
+  { id: "structured_data", label: "Structured Data" },
 ];
 
 const LoadingText = () => {
@@ -48,7 +49,7 @@ interface CrawlerFormProps {
 
 export default function CrawlerForm({ onSubmit, isLoading }: CrawlerFormProps) {
   const [url, setUrl] = useState("");
-  const [fields, setFields] = useState<Field[]>(["title", "description", "images", "links"]);
+  const [fields, setFields] = useState<Field[]>(["title", "description", "images", "links", "structured_data"]);
 
   const toggleField = (field: Field) => {
     setFields(prev => 
