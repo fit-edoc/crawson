@@ -1,4 +1,4 @@
-# Arachne Web Extractor
+# Crawson Web Extractor
 
 A production-ready full-stack web scraping application with a Python FastAPI backend and a Next.js (App Router) frontend. It dynamically switches between static scraping (fast, using BeautifulSoup) and dynamic scraping (Playwright) depending on the target website's content.
 
