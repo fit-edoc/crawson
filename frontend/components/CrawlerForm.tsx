@@ -64,10 +64,10 @@ export default function CrawlerForm({ onSubmit, isLoading }: CrawlerFormProps) {
   };
 
   return (
-    <Card className="rounded-[3rem] w-full max-w-3xl mx-auto mb-8 transition-all duration-300 border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1),0_0_40px_rgba(165,214,167,0.2)] bg-white/70 backdrop-blur-xl overflow-hidden">
-      <CardHeader className="text-center pb-6 pt-12 border-b border-slate-100/50">
-        <CardTitle className="text-5xl font-[var(--font-oswald)] tracking-wide mb-3 text-slate-900 uppercase">
-          Crawson Extractor
+    <Card className="rounded-3xl sm:rounded-[3rem] w-full max-w-3xl mx-auto mb-8 transition-all duration-300 border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1),0_0_40px_rgba(165,214,167,0.2)] bg-white/70 backdrop-blur-xl overflow-hidden">
+      <CardHeader className="text-center pb-6 pt-10 sm:pt-12 border-b border-slate-100/50">
+        <CardTitle className="text-4xl sm:text-5xl font-[var(--font-oswald)] tracking-wide mb-3 text-slate-900 uppercase">
+          Crawson 
         </CardTitle>
         <CardDescription className="text-slate-600 text-base font-medium">
           Extract structured data from any URL instantly.

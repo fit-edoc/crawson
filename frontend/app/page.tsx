@@ -41,11 +41,11 @@ export default function LandingPage() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full max-w-4xl bg-[#000000] backdrop-blur-3xl mt-4 rounded-full fixed top-4 left-1/2 -translate-x-1/2 flex items-center justify-between py-3 px-3 z-50"
+        className="w-[calc(100%-2rem)] max-w-4xl bg-[#000000] backdrop-blur-3xl mt-2 sm:mt-4 rounded-full fixed top-2 sm:top-4 left-1/2 -translate-x-1/2 flex items-center justify-between py-2 sm:py-3 px-3 sm:px-4 z-50"
       >
         <div className="flex items-center gap-3 font-khand text-xl text-slate-800">
          <div className="flex items-center gap-2"><Image src="/logo.png" alt="logo" width={30} height={30} className="rounded-lg" />
-          <p className="text-white font-khand text-2xl">Crawson</p>
+          <p className="text-white font-khand text-xl md:text-2xl">Crawson</p>
           </div>
         </div>
         
@@ -60,7 +60,7 @@ export default function LandingPage() {
       <div className="flex flex-col items-center text-center mt-40 sm:mt-48 max-w-4xl mx-auto px-4 z-10">
         
         <motion.h1 
-          className="text-5xl sm:text-6xl md:text-7xl text-slate-900 mb-6 tracking-tight leading-[1.2] flex flex-wrap justify-center items-center gap-x-4 gap-y-2" 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-slate-900 mb-6 tracking-tight leading-[1.2] flex flex-wrap justify-center items-center gap-x-2 sm:gap-x-4 gap-y-2" 
           style={{ fontFamily: 'var(--font-kanit)', fontWeight: 500 }}
           variants={staggerContainer}
           initial="hidden"
@@ -72,7 +72,7 @@ export default function LandingPage() {
             variants={blurWord}
             src="/logo.png" 
             alt="Hero Icon" 
-            className="w-16 h-16 sm:w-20 rotate-12 sm:h-20 bg-slate-200 rounded-2xl object-cover inline-block shadow-md" 
+            className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rotate-12 bg-slate-200 rounded-2xl object-cover inline-block shadow-md" 
           />
           <motion.span variants={blurWord}>Web Data</motion.span>
           <motion.span variants={blurWord} className="w-full block mt-2">Without Limits</motion.span>
@@ -108,7 +108,7 @@ export default function LandingPage() {
 
       {/* Hero Image Section */}
       <div className="w-full max-w-5xl mx-auto mt-24 px-4 pb-24 z-10">
-        <div className="w-full aspect-video bg-black backdrop-blur-sm rounded-[2rem] sm:rounded-[3rem] p-4 sm:p-4 shadow-2xl border border-white/50 flex items-center justify-center">
+        <div className="w-full aspect-video bg-black backdrop-blur-sm rounded-[2rem] sm:rounded-[3rem] p-2 sm:p-4 shadow-2xl border border-white/50 flex items-center justify-center">
           {/* Main Showcase Image Placeholder */}
           <video src="/showcase.mp4" autoPlay muted loop className="w-full h-full object-cover  rounded-[1.5rem] sm:rounded-[2.5rem] bg-slate-100 shadow-inner" ></video>
         </div>

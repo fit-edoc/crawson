@@ -65,7 +65,7 @@ export default function ToolPage() {
       {data && (
         <div id="results-container" className="mt-12 scroll-mt-6">
           {/* View Mode Controls */}
-          <div className="flex justify-center gap-2 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
             <button
               onClick={() => setViewMode("split")}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors font-medium ${
