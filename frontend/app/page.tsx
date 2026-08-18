@@ -92,7 +92,7 @@ export default function LandingPage() {
           ))}
         </motion.p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <motion.div initial={{opacity:0,filter:"blur(2px)",y:10}} animate={{opacity:1,filter:"blur(0px)",y:0}} transition={{duration:1,ease:"linear"}} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/tool">
             <AnimatedButton className="bg-slate-900 text-white px-8 py-2 rounded-md font-medium  hover:shadow-xl hover:bg-slate-800 transition-all h-10">
               Launch Scraper 
@@ -103,7 +103,7 @@ export default function LandingPage() {
               View Features 
             </AnimatedButton>
           </Link>
-        </div>
+        </motion.div>
       </div>
 
       {/* Hero Image Section */}
