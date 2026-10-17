@@ -5,6 +5,9 @@ import AnimatedButton from "@/components/AnimatedButton";
 import { buttonVariants } from "@/components/ui/button";
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
+import ScrapingProcessSection from "@/components/process/ScrapingProcessSection";
+import FaqSection from "@/components/FaqSection";
+
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   show: {
@@ -19,13 +22,6 @@ const blurWord: Variants = {
   hidden: { filter: "blur(10px)", opacity: 0, y: 10 },
   show: { filter: "blur(0px)", opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
-
-const stepCards = [
-  { step: "01", title: "Enter URL", desc: "Paste the target website URL into Crawson." },
-  { step: "02", title: "Select Fields", desc: "Choose what data to extract like images, links, or text." },
-  { step: "03", title: "Smart Extraction", desc: "Our engine statically or dynamically scrapes the target." },
-  { step: "04", title: "Download", desc: "Export your scraped assets and structured data instantly." }
-];
 
 export default function LandingPage() {
   const tagline = "The next-generation web scraping engine. Bypass lazy-loading, extract structured data, and download assets instantly with our smart static and dynamic fallback technology.";
@@ -114,32 +110,11 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* How does it work Section */}
-      <div className="w-full bg-white py-32 px-4 z-10 border-t border-slate-200 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl  text-slate-900 mb-4 tracking-tight uppercase font-oswald">How it Works</h2>
-            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-oswald)' }}>Turn any website into structured data with our robust, four-step extraction pipeline.</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {stepCards.map((card, index) => (
-              <motion.div 
-                key={card.step}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
-                className="bg-white border border-slate-200 p-8 rounded-[2rem] hover:bg-slate-950 hover:text-white transition-all duration-500 group shadow-sm hover:shadow-2xl relative"
-              >
-                <div className="text-5xl font-black text-slate-100 group-hover:text-slate-800 transition-colors mb-6 font-khand">{card.step}</div>
-                <h3 className="text-2xl font-bold mb-3 tracking-tight group-hover:text-white text-slate-900 transition-colors">{card.title}</h3>
-                <p className="text-slate-500 group-hover:text-slate-400 font-medium leading-relaxed transition-colors text-sm">{card.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* How does it work Section - Animated Isometric Process Cards */}
+      <ScrapingProcessSection />
+
+      {/* FAQ Section */}
+      <FaqSection />
 
       {/* Footer Section */}
       <footer className="w-full bg-[#0a0a0a] pt-24 pb-8 px-6 flex flex-col z-10 border-t border-slate-900 overflow-hidden relative">
