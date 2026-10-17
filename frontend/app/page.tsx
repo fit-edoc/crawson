@@ -160,7 +160,7 @@ export default function LandingPage() {
 
       {/* Fixed bottom viewport blur overlay */}
       <div
-        className="fixed bottom-0 left-0 right-0 h-20 pointer-events-none z-40 bg-gradient-to-t from-white/80 via-white/40 to-transparent backdrop-blur-md [mask-image:linear-gradient(to_top,black,transparent)] [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
+        className="fixed bottom-0 left-0 right-0 h-30 pointer-events-none z-40 bg-gradient-to-t from-white/80 via-white/40 to-transparent backdrop-blur-xl [mask-image:linear-gradient(to_top,black,transparent)] [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"
         aria-hidden="true"
       />
     </main>
