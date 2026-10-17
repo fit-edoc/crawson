@@ -80,7 +80,8 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
               <AnimatedButton
                 onClick={async () => {
                   try {
-                    const response = await fetch("http://127.0.0.1:8000/download-zip", {
+                    const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
+                    const response = await fetch(`${apiUrl}/download-zip`, {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ images: data.images })
@@ -97,6 +98,7 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
                     a.remove();
                     window.URL.revokeObjectURL(url);
                   } catch (error) {
+                    console.error("ZIP download error:", error);
                     alert("Failed to download ZIP file");
                   }
                 }}
@@ -110,7 +112,9 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
           <CardContent>
             <ScrollArea className="h-[400px] pr-4">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pb-4">
-                {data.images.map((img, idx) => (
+                {data.images.map((img, idx) => {
+                  const apiUrl = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000").replace(/\/+$/, "");
+                  return (
                   <div 
                     key={idx} 
                     className="block group relative aspect-video rounded-lg overflow-hidden bg-slate-100 border border-slate-200"
@@ -133,7 +137,7 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
                       </a>
                       
                       <a 
-                        href={`http://127.0.0.1:8000/download-image?url=${encodeURIComponent(img)}`} 
+                        href={`${apiUrl}/download-image?url=${encodeURIComponent(img)}`} 
                         title="Download Image" 
                         className="p-2 bg-white hover:bg-slate-100 rounded-full transition-colors text-slate-900 shadow-sm border-2 border-slate-900"
                       >
@@ -141,7 +145,7 @@ export default function VisualRenderer({ data }: { data: ScrapedData }) {
                       </a>
                     </div>
                   </div>
-                ))}
+                )})}
               </div>
             </ScrollArea>
           </CardContent>
